@@ -1,5 +1,3 @@
-
-
 1) go mod init github.com/tpmdigital/simplebank
 
 2) go mod tidy
@@ -30,5 +28,3 @@ SELECT FROM ACCOUNTS WHERE id = 2 FOR UPDATE;
 UPDATE ACCOUNTS SET BALANCE = 110 WHERE id = 2 RETURNING *;
 
 ROLLBACK;
-
-Test Git committing!
