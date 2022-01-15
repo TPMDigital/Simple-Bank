@@ -16,13 +16,16 @@ migratedown:
 sqlcinit:
 	sqlc init
 
-sqlcgen:
+sqlc:
 	sqlc generate
 
 test:
 	go test -v -cover ./...
 
+server:
+	go run main.go
+
 sqlsession:
 	docker exec -it postgres12 psql -U root -d simple_bank
 	
-.PHONY: createdb dropdb migrateup migratedown sqlcinit sqlcgenerate
+.PHONY: createdb dropdb migrateup migratedown sqlcinit sqlc test server sqlsession
