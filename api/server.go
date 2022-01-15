@@ -31,6 +31,7 @@ func (server *Server) Start(address string) error {
 	return server.router.Run(address)
 }
 
+// Generic error formatter for json errors going back to the client
 func errorResponse(err error) gin.H {
 	return gin.H{"error": err.Error()}
 }

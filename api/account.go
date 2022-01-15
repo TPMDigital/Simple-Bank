@@ -8,11 +8,19 @@ import (
 	db "github.com/tpmdigital/simplebank/db/sqlc"
 )
 
-//// Single
+//// Get Single Account by ID
 
+// Request View Model
 type getAccountRequest struct {
-	ID int64 `uri:"id" binding:"required,min=1"` 
+	ID int64 `uri:"id" binding:"required,min=1"`
 }
+
+// Response View Model
+// type getAccountResponse struct {
+// 	ID int64 `json:"id"`
+// 	Balance int64  `json:"balance"`
+// 	Currency string `json:"currency"`
+// }
 
 func (server *Server) getAccount(ctx *gin.Context) {
 	// Bind request to getAccountRequest struct
@@ -32,15 +40,20 @@ func (server *Server) getAccount(ctx *gin.Context) {
 		return
 	}
 
+	// var res getAccountResponse
+	// res.ID = account.ID
+	// res.Balance = account.Balance
+	// res.Currency = account.Currency
+
 	// no errors return to the client
-	ctx.JSON(http.StatusOK, account)
+	ctx.JSON(http.StatusOK, account) // res
 }
 
-//// Many
+//// Get Many Accounts (Paged)
 
 type listAccountRequest struct {
-	PageID int32 `form:"page_id" binding:"required,min=1"` 
-	PageSize int32 `form:"page_size" binding:"required,min=5,max=10"` 
+	PageID   int32 `form:"page_id" binding:"required,min=1"`
+	PageSize int32 `form:"page_size" binding:"required,min=5,max=10"`
 }
 
 func (server *Server) listAccount(ctx *gin.Context) {
@@ -52,8 +65,8 @@ func (server *Server) listAccount(ctx *gin.Context) {
 	}
 
 	arg := db.ListAccountsParams{
-		Limit:    req.PageSize,
-		Offset: (req.PageID -1) * req.PageSize,
+		Limit:  req.PageSize,
+		Offset: (req.PageID - 1) * req.PageSize,
 	}
 
 	accounts, err := server.store.ListAccounts(ctx, arg)
@@ -70,8 +83,7 @@ func (server *Server) listAccount(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, accounts)
 }
 
-////
-
+//// Create Account
 type createAccountRequest struct {
 	Owner    string `json:"owner" binding:"required"`
 	Currency string `json:"currency" binding:"required,oneof=USD EUR GBP"`
@@ -102,10 +114,9 @@ func (server *Server) createAccount(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, account)
 }
 
-////
-
+/// Update Account
 type updateAccountRequest struct {
-	ID    int64 `json:"id" binding:"required"`
+	ID      int64 `json:"id" binding:"required"`
 	Balance int64 `json:"balance" binding:"required"`
 }
 
@@ -120,8 +131,8 @@ func (server *Server) updateAccount(ctx *gin.Context) {
 
 	// Call into the db to create the account
 	arg := db.UpdateAccountParams{
-		ID:    req.ID,
-		Balance:  req.Balance,
+		ID:      req.ID,
+		Balance: req.Balance,
 	}
 	account, err := server.store.UpdateAccount(ctx, arg)
 	if err != nil {
@@ -133,10 +144,9 @@ func (server *Server) updateAccount(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, account)
 }
 
-///
-
+/// Delete Account
 type deleteAccountRequest struct {
-	ID int64 `uri:"id" binding:"required,min=1"` 
+	ID int64 `uri:"id" binding:"required,min=1"`
 }
 
 func (server *Server) deleteAccount(ctx *gin.Context) {
@@ -159,4 +169,3 @@ func (server *Server) deleteAccount(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, nil)
 }
-
