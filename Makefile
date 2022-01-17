@@ -27,5 +27,8 @@ server:
 
 sqlsession:
 	docker exec -it postgres12 psql -U root -d simple_bank
+
+mock:
+	mockgen -package mockdb -destination db/mock/store.go github.com/tpmdigital/simplebank/db/sqlc Store
 	
-.PHONY: createdb dropdb migrateup migratedown sqlcinit sqlc test server sqlsession
+.PHONY: createdb dropdb migrateup migratedown sqlcinit sqlc test server sqlsession mock
