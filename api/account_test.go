@@ -146,7 +146,7 @@ func TestCreateAccount(t *testing.T) {
 		{
 			name: "OK",
 			body: gin.H{
-				"owner": account.Owner,
+				"owner":    account.Owner,
 				"currency": account.Currency,
 			},
 
@@ -170,7 +170,7 @@ func TestCreateAccount(t *testing.T) {
 		{
 			name: "InternalError",
 			body: gin.H{
-				"owner": account.Owner,
+				"owner":    account.Owner,
 				"currency": account.Currency,
 			},
 
@@ -193,7 +193,7 @@ func TestCreateAccount(t *testing.T) {
 		{
 			name: "InvalidCurrency",
 			body: gin.H{
-				"owner": account.Owner,
+				"owner":    account.Owner,
 				"currency": "invalid",
 			},
 
@@ -255,19 +255,19 @@ func TestListAccount(t *testing.T) {
 	}
 
 	testCases := []struct {
-		name          string
-		query		  Query
-		owner	      string
+		name  string
+		query Query
+		// owner	      string
 		buildStubs    func(store *mockdb.MockStore)
 		checkResponse func(t *testing.T, recoder *httptest.ResponseRecorder)
 	}{
 		{
-			name:      "OK",
+			name: "OK",
 			query: Query{
 				pageID:   1,
 				pageSize: n,
 			},
-			owner: owner,
+			// owner: owner,
 			buildStubs: func(store *mockdb.MockStore) {
 				arg := db.ListAccountsParams{
 					Limit:  int32(n),
@@ -286,11 +286,10 @@ func TestListAccount(t *testing.T) {
 		},
 		{
 			name: "NotFound",
-			query:  Query{
+			query: Query{
 				pageID:   1,
 				pageSize: n,
 			},
-			owner: owner,
 			buildStubs: func(store *mockdb.MockStore) {
 				arg := db.ListAccountsParams{
 					Limit:  int32(n),
@@ -306,12 +305,11 @@ func TestListAccount(t *testing.T) {
 			},
 		},
 		{
-			name:  "InternalError",
+			name: "InternalError",
 			query: Query{
 				pageID:   1,
 				pageSize: n,
 			},
-			owner: owner,
 			buildStubs: func(store *mockdb.MockStore) {
 				arg := db.ListAccountsParams{
 					Limit:  int32(n),
@@ -403,14 +401,14 @@ func TestUpdateAccount(t *testing.T) {
 		{
 			name: "OK",
 			body: gin.H{
-				"id": account.ID,
+				"id":      account.ID,
 				"balance": account.Balance,
 			},
 
 			buildStubs: func(store *mockdb.MockStore) {
 				arg := db.UpdateAccountParams{
-					ID:    account.ID,
-					Balance:  account.Balance,
+					ID:      account.ID,
+					Balance: account.Balance,
 				}
 
 				store.EXPECT().
@@ -426,14 +424,14 @@ func TestUpdateAccount(t *testing.T) {
 		{
 			name: "InternalError",
 			body: gin.H{
-				"id": account.ID,
+				"id":      account.ID,
 				"balance": account.Balance,
 			},
 
 			buildStubs: func(store *mockdb.MockStore) {
 				arg := db.UpdateAccountParams{
-					ID:    account.ID,
-					Balance:  account.Balance,
+					ID:      account.ID,
+					Balance: account.Balance,
 				}
 
 				store.EXPECT().
@@ -453,7 +451,7 @@ func TestUpdateAccount(t *testing.T) {
 
 			buildStubs: func(store *mockdb.MockStore) {
 				arg := db.UpdateAccountParams{
-					ID:    account.ID,
+					ID:      account.ID,
 					Balance: account.Balance,
 				}
 				store.EXPECT().
@@ -472,7 +470,7 @@ func TestUpdateAccount(t *testing.T) {
 
 			buildStubs: func(store *mockdb.MockStore) {
 				arg := db.UpdateAccountParams{
-					ID:    account.ID,
+					ID:      account.ID,
 					Balance: account.Balance,
 				}
 				store.EXPECT().
@@ -483,9 +481,6 @@ func TestUpdateAccount(t *testing.T) {
 				require.Equal(t, http.StatusBadRequest, recorder.Code)
 			},
 		},
-
-
-
 	}
 
 	for i := range testCases {
@@ -521,12 +516,12 @@ func TestDeleteAccount(t *testing.T) {
 
 	testCases := []struct {
 		name          string
-		accountID	  int64
+		accountID     int64
 		buildStubs    func(store *mockdb.MockStore)
 		checkResponse func(t *testing.T, recoder *httptest.ResponseRecorder)
 	}{
 		{
-			name: "OK",
+			name:      "OK",
 			accountID: account.ID,
 			buildStubs: func(store *mockdb.MockStore) {
 				store.EXPECT().
@@ -552,7 +547,7 @@ func TestDeleteAccount(t *testing.T) {
 			},
 		},
 		{
-			name: "InternalError",
+			name:      "InternalError",
 			accountID: account.ID,
 			buildStubs: func(store *mockdb.MockStore) {
 				store.EXPECT().
@@ -576,8 +571,6 @@ func TestDeleteAccount(t *testing.T) {
 				require.Equal(t, http.StatusBadRequest, recorder.Code)
 			},
 		},
-
-
 
 		// {
 		// 	name: "BalanceMissing",
@@ -641,8 +634,6 @@ func TestDeleteAccount(t *testing.T) {
 		})
 	}
 }
-
-
 
 // Test Support Functions
 func randomAccount(owner string) db.Account {
