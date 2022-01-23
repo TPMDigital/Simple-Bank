@@ -18,34 +18,37 @@ import (
 	"github.com/tpmdigital/simplebank/util"
 )
 
-// func TestAccountAPI_SimpleCase(t *testing.T) {
-// 	account := randomAccount()
+// simple - one test case against endpoint
+func TestGetAccountAPI_SimpleCase(t *testing.T) {
+	owner := util.RandomOwner()
+	account := randomAccount(owner)
 
-// 	ctrl := gomock.NewController(t)
-// 	defer ctrl.Finish()
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
 
-// 	store := mockdb.NewMockStore(ctrl)
+	store := mockdb.NewMockStore(ctrl)
 
-// 	// build the stubs
-// 	store.EXPECT().GetAccount(gomock.Any(), gomock.Eq(account.ID)).Times(1).Return(account, nil)
+	// build the stubs
+	store.EXPECT().GetAccount(gomock.Any(), gomock.Eq(account.ID)).Times(1).Return(account, nil)
 
-// 	// start test server and send request
-// 	server := NewServer(store)
-// 	recorder := httptest.NewRecorder()
+	// start test server and send request
+	server := NewServer(store)
+	recorder := httptest.NewRecorder()
 
-// 	url := fmt.Sprintf("/accounts/%d", account.ID)
-// 	request, err := http.NewRequest(http.MethodGet, url, nil)
+	url := fmt.Sprintf("/accounts/%d", account.ID)
+	request, err := http.NewRequest(http.MethodGet, url, nil)
 
-// 	// check no error setting up new request
-// 	require.NoError(t, err)
-// 	// send the request
-// 	server.router.ServeHTTP(recorder, request)
-// 	// check the response OK
-// 	require.Equal(t, http.StatusOK, recorder.Code)
+	// check no error setting up new request
+	require.NoError(t, err)
+	// send the request
+	server.router.ServeHTTP(recorder, request)
+	// check the response OK
+	require.Equal(t, http.StatusOK, recorder.Code)
 
-// 	requireBodyMatchAccount(t, recorder.Body, account)
-// }
+	requireBodyMatchAccount(t, recorder.Body, account)
+}
 
+// complex - array of test cases against endpoint
 func TestGetAccountAPI(t *testing.T) {
 	owner := util.RandomOwner()
 	account := randomAccount(owner)
