@@ -5,6 +5,7 @@ import (
 	"github.com/tpmdigital/simplebank/util"
 )
 
+// Currency custom validator
 var validCurrency validator.Func = func(fieldLevel validator.FieldLevel) bool {
 
 	if currency, ok := fieldLevel.Field().Interface().(string); ok {

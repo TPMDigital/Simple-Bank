@@ -19,13 +19,13 @@ import (
 func TestTransferAPI(t *testing.T) {
 	amount := int64(10)
 
-	user1 := util.RandomOwner()
-	user2 := util.RandomOwner()
-	user3 := util.RandomOwner()
+	owner1 := util.RandomOwner()
+	owner2 := util.RandomOwner()
+	owner3 := util.RandomOwner()
 
-	account1 := randomAccount(user1)
-	account2 := randomAccount(user2)
-	account3 := randomAccount(user3)
+	account1 := randomAccount(owner1)
+	account2 := randomAccount(owner2)
+	account3 := randomAccount(owner3)
 
 	account1.Currency = util.USD
 	account2.Currency = util.USD

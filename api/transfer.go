@@ -26,6 +26,7 @@ func (server *Server) createTransfer(ctx *gin.Context) {
 		return
 	}
 
+	// Check that both accounts have the same currency as the one in the transfer request
 	if !server.validAccount(ctx, req.FromAccountID, req.Currency) {
 		return
 	}
@@ -45,10 +46,11 @@ func (server *Server) createTransfer(ctx *gin.Context) {
 		return
 	}
 
-	// no errors return to the client
+	// No errors return to the client
 	ctx.JSON(http.StatusOK, result)
 }
 
+// Check the account with the passed in accountID has the same currency as the one supplied
 func (server *Server) validAccount(ctx *gin.Context, accountID int64, currency string) bool {
 
 	account, err := server.store.GetAccount(ctx, accountID)
