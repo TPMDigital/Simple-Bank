@@ -28,3 +28,5 @@ SELECT FROM ACCOUNTS WHERE id = 2 FOR UPDATE;
 UPDATE ACCOUNTS SET BALANCE = 110 WHERE id = 2 RETURNING *;
 
 ROLLBACK;
+
+migrate create -ext sql -dir db/migration -seq add_users
