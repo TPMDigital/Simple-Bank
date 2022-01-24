@@ -151,7 +151,7 @@ func (server *Server) updateAccount(ctx *gin.Context) {
 		return
 	}
 
-	// no errors return to the client
+	// No errors return to the client
 	ctx.JSON(http.StatusOK, account)
 }
 

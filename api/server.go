@@ -9,7 +9,7 @@ import (
 
 // Server serves HTTP requests for our banking service.
 type Server struct {
-	store db.Store
+	store  db.Store
 	router *gin.Engine
 }
 
@@ -22,12 +22,17 @@ func NewServer(store db.Store) *Server {
 		v.RegisterValidation("currency", validCurrency)
 	}
 
+	// User Routes
+	router.POST("/users", server.createUser)
+
+	// Account Routes
 	router.GET("/accounts/:id", server.getAccount)
 	router.GET("/accounts", server.listAccount)
 	router.POST("/accounts", server.createAccount)
 	router.PUT("/accounts", server.updateAccount)
 	router.DELETE("/accounts/:id", server.deleteAccount)
-	//
+
+	// Transfer Routes
 	router.POST("/transfers", server.createTransfer)
 
 	server.router = router
