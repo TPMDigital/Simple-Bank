@@ -20,13 +20,14 @@ import (
 	"github.com/tpmdigital/simplebank/util"
 )
 
+// Example of custom mock matcher
 type eqCreateUserParamsMatcher struct {
 	arg      db.CreateUserParams
 	password string
 }
 
 func (e eqCreateUserParamsMatcher) Matches(x interface{}) bool {
-	arg, ok := x.(db.CreateUserParams)
+	arg, ok := x.(db.CreateUserParams) // cast to db.CreateUserParams
 	if !ok {
 		return false
 	}

@@ -30,7 +30,6 @@ func TestHashPasswordNotDuplicate(t *testing.T) {
 	require.NotEqual(t, hashedPassword1, hashedPassword2)
 }
 
-
 func TestGoodPasswordCompare(t *testing.T) {
 	password := RandomString(6)
 	hashedPassword, err := HashedPassword(password)
@@ -54,4 +53,3 @@ func TestBadPasswordCompare(t *testing.T) {
 	require.Error(t, err)
 	require.EqualError(t, err, bcrypt.ErrMismatchedHashAndPassword.Error())
 }
-

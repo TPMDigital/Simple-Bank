@@ -59,4 +59,3 @@ func RandomEmail() string {
 	n := len(providers)
 	return RandomString(6) + providers[rand.Intn(n)]
 }
-

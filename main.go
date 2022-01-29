@@ -2,9 +2,9 @@ package main
 
 import (
 	"database/sql"
-	"log"
 	_ "github.com/lib/pq"
-	
+	"log"
+
 	"github.com/tpmdigital/simplebank/api"
 	db "github.com/tpmdigital/simplebank/db/sqlc"
 	"github.com/tpmdigital/simplebank/util"

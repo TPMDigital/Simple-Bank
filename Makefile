@@ -29,6 +29,12 @@ sqlc:
 test:
 	go test -v -cover ./...
 
+format:
+    go fmt ./...
+
+vet:
+    go vet ./...
+
 server:
 	go run main.go
 
@@ -38,4 +44,4 @@ sqlsession:
 mock:
 	mockgen -package mockdb -destination db/mock/store.go github.com/tpmdigital/simplebank/db/sqlc Store
 	
-.PHONY: createdb dropdb migrateup migratedown migrateup1 migratedown1 sqlcinit sqlc test server sqlsession mock
+.PHONY: createdb dropdb migrateup migratedown migrateup1 migratedown1 sqlcinit sqlc test server sqlsession mock format
