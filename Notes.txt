@@ -1,32 +1,7 @@
-1) go mod init github.com/tpmdigital/simplebank
+1) Example
 
-2) go mod tidy
+go mod init github.com/tpmdigital/simplebank
 
-3) snap install --classic go
+2) Example:
 
-https://github.com/techschool/simplebank/blob/master/db/query/transfer.sql
-
-https://github.com/kyleconroy/sqlc
-
-https://github.com/golang-migrate/migrate
-
-UPDATE ACCOUNTS SET BALANCE = 100 WHERE id = 1 RETURNING *;
-UPDATE ACCOUNTS SET BALANCE = 100 WHERE id = 2 RETURNING *;
-
-BEGIN;
-
-INSERT INTO transfers (from_account_id, to_account_id, amount) VALUES (1,2,10) RETURNING *;
-
-INSERT INTO ENTRIES (account_id, amount) VALUES (1, -10) RETURNING *;
-
-INSERT INTO ENTRIES (account_id, amount) VALUES (2, 10) RETURNING *;
-
-SELECT FROM ACCOUNTS WHERE id = 1 FOR UPDATE;
-UPDATE ACCOUNTS SET BALANCE = 90 WHERE id = 1 RETURNING *;
-
-SELECT FROM ACCOUNTS WHERE id = 2 FOR UPDATE;
-UPDATE ACCOUNTS SET BALANCE = 110 WHERE id = 2 RETURNING *;
-
-ROLLBACK;
-
-migrate create -ext sql -dir db/migration -seq add_users
+migrate create -ext sql -dir db/migration -seq INSET_NAME_OF_MIGRATION
