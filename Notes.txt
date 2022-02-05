@@ -1,7 +1,62 @@
-1) Example
+1) Example of how to create a new golang project
 
 go mod init github.com/tpmdigital/simplebank
 
-2) Example:
+2) Example of how to create a new migration
 
-migrate create -ext sql -dir db/migration -seq INSET_NAME_OF_MIGRATION
+migrate create -ext sql -dir db/migration -seq INSERT_NAME_OF_MIGRATION
+
+3) Example docker commands
+
+// see images
+docker images
+docker rmi [insert hex image id]
+
+// build simplebank image
+docker build -t simplebank:latest
+
+// remove simplebank image
+docker rmi [insert hex image id]
+
+// run simplebank image ( put on bank network in release mode )
+docker run --name simplebank --network bank-network -e GIN_MODE=release -e "DB_SOURCE=postgresql://root:secret@postgres12:5432/simple_bank?sslmode=disable" -p 8080:8080 simplebank:latest
+
+// check running and none running images
+docker ps -a
+
+// remove running image 
+docker rm simplebank
+
+// check running image ( for say it's connected networks )
+docker container inspect simplebank
+docker container inspect postgres12
+
+// check networks
+docker network ls
+
+// create network
+docker network create bank-network
+
+// attach running image to network
+docker network connect bank-network postgres12
+
+// create postgres12 image
+docker images
+docker pull postgres:12-alpine
+docker images
+
+// run the image
+docker run --name postgres12 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres12:alpine -p 5432:5432
+
+// get interactive terminal
+docker exec -it postgres12 psql -U root
+
+// see containers logs
+docker logs postgres12
+
+// stop running image
+docker stop postgres12
+
+// start image running
+docker start postgres12
+
