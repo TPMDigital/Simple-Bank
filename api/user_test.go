@@ -75,7 +75,6 @@ func TestCreateUser(t *testing.T) {
 			buildStubs: func(store *mockdb.MockStore) {
 				arg := db.CreateUserParams{
 					Username: user.Username,
-					// HashedPassword: hashedPassword,
 					FullName: user.FullName,
 					Email:    user.Email,
 				}
@@ -102,7 +101,6 @@ func TestCreateUser(t *testing.T) {
 			buildStubs: func(store *mockdb.MockStore) {
 				arg := db.CreateUserParams{
 					Username: user.Username,
-					// HashedPassword: hashedPassword,
 					FullName: user.FullName,
 					Email:    user.Email,
 				}
@@ -128,7 +126,6 @@ func TestCreateUser(t *testing.T) {
 			buildStubs: func(store *mockdb.MockStore) {
 				arg := db.CreateUserParams{
 					Username: user.Username,
-					// HashedPassword: hashedPassword,
 					FullName: user.FullName,
 					Email:    user.Email,
 				}
@@ -154,7 +151,6 @@ func TestCreateUser(t *testing.T) {
 			buildStubs: func(store *mockdb.MockStore) {
 				arg := db.CreateUserParams{
 					Username: user.Username,
-					// HashedPassword: hashedPassword,
 					FullName: user.FullName,
 					Email:    user.Email,
 				}
@@ -180,7 +176,6 @@ func TestCreateUser(t *testing.T) {
 			buildStubs: func(store *mockdb.MockStore) {
 				arg := db.CreateUserParams{
 					Username: user.Username,
-					// HashedPassword: hashedPassword,
 					FullName: user.FullName,
 					Email:    user.Email,
 				}
@@ -206,7 +201,6 @@ func TestCreateUser(t *testing.T) {
 			buildStubs: func(store *mockdb.MockStore) {
 				arg := db.CreateUserParams{
 					Username: user.Username,
-					// HashedPassword: hashedPassword,
 					FullName: user.FullName,
 					Email:    user.Email,
 				}
@@ -232,7 +226,6 @@ func TestCreateUser(t *testing.T) {
 			buildStubs: func(store *mockdb.MockStore) {
 				arg := db.CreateUserParams{
 					Username: user.Username,
-					// HashedPassword: hashedPassword,
 					FullName: user.FullName,
 					Email:    user.Email,
 				}
@@ -258,7 +251,6 @@ func TestCreateUser(t *testing.T) {
 			buildStubs: func(store *mockdb.MockStore) {
 				arg := db.CreateUserParams{
 					Username: user.Username,
-					// HashedPassword: hashedPassword,
 					FullName: user.FullName,
 					Email:    user.Email,
 				}
@@ -283,7 +275,6 @@ func TestCreateUser(t *testing.T) {
 			buildStubs: func(store *mockdb.MockStore) {
 				arg := db.CreateUserParams{
 					Username: user.Username,
-					// HashedPassword: hashedPassword,
 					FullName: user.FullName,
 					Email:    user.Email,
 				}
@@ -307,7 +298,6 @@ func TestCreateUser(t *testing.T) {
 			buildStubs: func(store *mockdb.MockStore) {
 				arg := db.CreateUserParams{
 					Username: user.Username,
-					// HashedPassword: hashedPassword,
 					FullName: user.FullName,
 					Email:    user.Email,
 				}
@@ -320,30 +310,29 @@ func TestCreateUser(t *testing.T) {
 				require.Equal(t, http.StatusForbidden, recorder.Code)
 			},
 		},
-		// {
-		// 	name: "DuplicateEmail",
-		// 	body: gin.H{
-		// 		"username":  user.Username,
-		// 		"password":  password,
-		// 		"full_name": user.FullName,
-		// 		"email":     user.Email,
-		// 	},
-		// 	buildStubs: func(store *mockdb.MockStore) {
-		// 		arg := db.CreateUserParams{
-		// 			Username: user.Username,
-		// 			// HashedPassword: hashedPassword,
-		// 			FullName: user.FullName,
-		// 			Email:    user.Email,
-		// 		}
-		// 		store.EXPECT().
-		// 			CreateUser(gomock.Any(), EqCreateUserParams(arg, password)).
-		// 			Times(1).
-		// 			Return(db.User{}, &pq.Error{Code: "23505"})
-		// 	},
-		// 	checkResponse: func(t *testing.T, recorder *httptest.ResponseRecorder) {
-		// 		require.Equal(t, http.StatusForbidden, recorder.Code)
-		// 	},
-		// },
+		{
+			name: "DuplicateEmail",
+			body: gin.H{
+				"username":  user.Username,
+				"password":  password,
+				"full_name": user.FullName,
+				"email":     user.Email,
+			},
+			buildStubs: func(store *mockdb.MockStore) {
+				arg := db.CreateUserParams{
+					Username: user.Username,
+					FullName: user.FullName,
+					Email:    user.Email,
+				}
+				store.EXPECT().
+					CreateUser(gomock.Any(), EqCreateUserParams(arg, password)).
+					Times(1).
+					Return(db.User{}, &pq.Error{Code: "23505"})
+			},
+			checkResponse: func(t *testing.T, recorder *httptest.ResponseRecorder) {
+				require.Equal(t, http.StatusForbidden, recorder.Code)
+			},
+		},
 	}
 
 	for i := range testCases {

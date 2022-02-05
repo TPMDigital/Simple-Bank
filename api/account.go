@@ -2,11 +2,13 @@ package api
 
 import (
 	"database/sql"
+	"errors"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/lib/pq"
 	db "github.com/tpmdigital/simplebank/db/sqlc"
+	"github.com/tpmdigital/simplebank/token"
 )
 
 //// Get Single Account by ID
@@ -46,6 +48,13 @@ func (server *Server) getAccount(ctx *gin.Context) {
 	// res.Balance = account.Balance
 	// res.Currency = account.Currency
 
+	authPayload := ctx.MustGet(authorizationPayloadKey).(*token.Payload) // cast to token.Payload as return is general interface
+	if account.Owner != authPayload.Username {
+		err := errors.New("account does not belong to the authenticated user")
+		ctx.JSON(http.StatusUnauthorized, errorResponse(err))
+		return
+	}
+
 	// no errors return to the client
 	ctx.JSON(http.StatusOK, account) // res
 }
@@ -65,7 +74,10 @@ func (server *Server) listAccount(ctx *gin.Context) {
 		return
 	}
 
+	authPayload := ctx.MustGet(authorizationPayloadKey).(*token.Payload) // cast to token.Payload as return is general interface
+
 	arg := db.ListAccountsParams{
+		Owner: authPayload.Username,
 		Limit:  req.PageSize,
 		Offset: (req.PageID - 1) * req.PageSize,
 	}
@@ -86,7 +98,6 @@ func (server *Server) listAccount(ctx *gin.Context) {
 
 //// Create Account
 type createAccountRequest struct {
-	Owner    string `json:"owner" binding:"required"`
 	Currency string `json:"currency" binding:"required,currency"`
 }
 
@@ -99,9 +110,11 @@ func (server *Server) createAccount(ctx *gin.Context) {
 		return
 	}
 
+	authPayload := ctx.MustGet(authorizationPayloadKey).(*token.Payload) // cast to token.Payload as return is general interface
+
 	// Call into the db to create the account
 	arg := db.CreateAccountParams{
-		Owner:    req.Owner,
+		Owner:    authPayload.Username,
 		Currency: req.Currency,
 		Balance:  0,
 	}
@@ -133,14 +146,14 @@ type updateAccountRequest struct {
 
 func (server *Server) updateAccount(ctx *gin.Context) {
 
-	// Bind request to createAccountRequest struct
+	// Bind request to updateAccountRequest struct
 	var req updateAccountRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
 		return
 	}
 
-	// Call into the db to create the account
+	// Call into the db to update the account
 	arg := db.UpdateAccountParams{
 		ID:      req.ID,
 		Balance: req.Balance,
