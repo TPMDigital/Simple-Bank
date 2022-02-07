@@ -95,5 +95,8 @@ aws secretsmanager get-secret-value --secret-id simple_bank --query SecretString
 // remove double quotes
 aws secretsmanager get-secret-value --secret-id simple_bank --query SecretString --output text | jq -r 'to_entries|map("\(.key)=\(.value)")|.[]'
 
+// login to pull docker image we have just generated
+aws ecr get-login-password | docker login --username AWS --password-stdin [PLACE_URL_OF_PRIVATE_DOCKER_REGISTRY_HERE]
 
-
+// pull docker image ( uri from the repository in ECR )
+docker pull ____________.ecr.eu-west-2.amazonaws.com/simplebank:__________________________________
