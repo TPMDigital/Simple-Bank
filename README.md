@@ -18,6 +18,7 @@ Backend:
 5) CORS restrictions (security)
 6) CQRS restrictions (security)
 7) SQL-Injection prevention (security)
+8) XCSS (security)
 
 Front End (vue.js/tailwind)
 
