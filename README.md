@@ -25,11 +25,9 @@ Front End (vue.js/tailwind)
 2) Login Page
 3) User Maintenance Page
 4) Logout Page
-
 5) Create New Account
 6) View Accounts
 7) View Transactions on account
 8) Transfer Virtual Money to another user
 9) Close Account
-
 10) Audit Log
