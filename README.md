@@ -14,25 +14,27 @@ Backend:
 1) Refresh Tokens (api)
 2) Stronger validation rules (api)
 3) Swagger documentation (docs)
-4) Graceful shutdown (go-gin)
+4) Graceful shutdown (api)
 5) CORS restrictions (security)
 6) CQRS restrictions (security)
 7) SQL-Injection prevention (security)
 8) XCSS (security)
 9) 2FA (security)
 10) Amazon Simple Mail Exchange API (services/api)
+11) Login via. PIN.
 
 Front End (vue.js/tailwind.css)
 
-1) Home Page
-2) Login Page
-3) Sign Up
-4) User Maintenance Page (Change Password, View/Edit Profile, Last Login)
-5) Logout Page
-6) Create New Account
-7) View Accounts
-8) View Transactions on account
-9) Transfer (virtual money) to another user
-10) Statements (secure pdf)
-11) Close Account
-12) Audit Log
+1) Design Guide/Branding
+2) Home Page
+3) Login Page
+4) Sign Up
+5) User Maintenance Page (Change Password, Change PIN, View/Edit Profile, Last Login)
+6) Logout Page
+7) Create New Account
+8) View Accounts
+9) View Transactions on account
+10) Transfer (virtual money) to another user
+11) Statements (secure pdf)
+12) Close Account
+13) Audit Log
