@@ -191,7 +191,7 @@ kubectl get pods --namespace cert-manager
 
 http://storage.googleapis.com/kubernetes-release/release/stable.txt
 
-...
+....
 
 
 
