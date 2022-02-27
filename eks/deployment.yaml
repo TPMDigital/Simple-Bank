@@ -1,0 +1,22 @@
+# deploy a given docker image with N replicas to the cluster
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-bank-api-deployment
+  labels:
+    app: simple-bank-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: simple-bank-api
+  template: 
+    metadata:
+      labels: 
+        app: simple-bank-api
+    spec:
+      containers:
+        - name: simple-bank-api
+          image: 962369089456.dkr.ecr.eu-west-2.amazonaws.com/simplebank:latest
+          ports:
+            - containerPort: 8080
