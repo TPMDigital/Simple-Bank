@@ -1,0 +1,12 @@
+# grant github_ci user access to manage the cluster
+apiVersion: v1
+kind: ConfigMap 
+metadata: 
+  name: aws-auth 
+  namespace: kube-system 
+data: 
+  mapUsers: | 
+    - userarn: arn:aws:iam::962369089456:user/github_ci 
+      username: github_ci
+      groups: 
+        - system:masters

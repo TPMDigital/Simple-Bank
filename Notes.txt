@@ -95,8 +95,106 @@ aws secretsmanager get-secret-value --secret-id simple_bank --query SecretString
 // remove double quotes
 aws secretsmanager get-secret-value --secret-id simple_bank --query SecretString --output text | jq -r 'to_entries|map("\(.key)=\(.value)")|.[]'
 
+7) Get docker image we have just generated and run it locally!
+
 // login to pull docker image we have just generated
 aws ecr get-login-password | docker login --username AWS --password-stdin [PLACE_URL_OF_PRIVATE_DOCKER_REGISTRY_HERE]
 
 // pull docker image ( uri from the repository in ECR )
 docker pull ____________.ecr.eu-west-2.amazonaws.com/simplebank:__________________________________
+
+// run docker image
+docker run -p 8080:8080 ____________.ecr.eu-west-2.amazonaws.com/simplebank:__________________________________
+
+8) Kubectl setup
+
+snap install kubectl --classic
+kubectl version --client
+kubectl cluster-info
+
+9) Setup the config file
+aws eks update-kubeconfig --name simple-bank --region eu-west-2 then look in ~./kube at the config file
+kubectl config use-context arn:aws:eks:eu-west-2:______________:cluster/simple-bank
+
+[ This will only work if the deployment group associated with the githib user has the correct cluster permissions (EKS) ]
+
+10) Check the current cluster identity
+aws sts get-caller-identity
+
+11) To run kubectl commands you need to be the user that created the cluster in the first place not github!
+
+cat ~/.aws/credentials
+create 2 profiles the github one and a default one. New key generated from company name -> security credentials -> Access keys (access key ID and secret access key)
+
+[github]
+aws_access_key_id = ........
+aws_secret_access_key = .......
+
+[default]
+aws_access_key_id = ........
+aws_secret_access_key = .......
+
+export AWS_PROFILE=github
+OR
+export AWS_PROFILE=default
+
+now run "aws sts get-caller-identity" to check you have root identity if profile is set to default
+
+kubectl cluster-info
+
+12) Grant github_ci access to the cluster by a user that did not create the cluster
+
+.. create eks -> aws-auth.yaml
+then as the default profile run kubectl apply -f aws-auth.yaml
+
+Misc commands:
+
+kubectl get service
+kubectl get pods
+
+After installing k9s in /usr/local/bin run k9s
+
+13) kubectl apply -f deployment.yaml ( this will deploy the image specified in the file )
+
+14) Now to make it visible to the outside world
+
+    kubectl apply -f service.yaml ( this will make it visible to the outside world) 
+
+15) Register Route53 record etc.
+
+    Deploy kubectl apply -f service-internal.yaml to make the service internal again i.e ClusterIP
+
+    then deploy ingress kubectl apply -f ingress.yaml 
+
+( can see ingress in k9s console )
+
+16) To make this visible we also need an ingress controller ( https://kubernetes.github.io/ingress-nginx/deploy/#aws )
+
+Run this to set one up -> kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.1/deploy/static/provider/aws/deploy.yaml
+
+a) Make the service private (Type ClusterIP)
+b) Deploy the ingress using ingress.yaml ( I needed both sections kind: IngressClass and kind: Ingress )
+c) Then update the Route53 A record to point to the endpoint address of the ingress
+
+17) Next this all need to be ssl tls
+
+https://cert-manager.io/docs/
+https://cert-manager.io/docs/installation/kubectl/
+
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.7.1/cert-manager.yaml
+
+Then validate:
+
+kubectl get pods --namespace cert-manager
+
+18) To get latest version of kubernetes
+
+http://storage.googleapis.com/kubernetes-release/release/stable.txt
+
+
+
+
+
+
+
+
