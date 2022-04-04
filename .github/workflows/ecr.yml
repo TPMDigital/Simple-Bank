@@ -1,4 +1,4 @@
-name: Deploy to production
+name: Deploy to Production ECR
 
 on:
   push:
@@ -13,12 +13,6 @@ jobs:
     steps:
     - name: Check out code
       uses: actions/checkout@v2
-
-    - name: Install Kubectl
-      uses: azure/setup-kubectl@v2.0
-      with:
-        version: 'v1.23.4' # default is latest stable
-        id: install
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -42,17 +36,3 @@ jobs:
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG  -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
         docker push -a $ECR_REGISTRY/$ECR_REPOSITORY
-   
-    - name: Update kube config
-      run: aws eks update-kubeconfig --name simple-bank --region eu-west-2
-
-    - name: Deploy image to Amazon EKS
-      run: |
-        kubectl apply -f eks/aws-auth.yaml
-        kubectl apply -f eks/deployment.yaml
-        kubectl apply -f eks/service.yaml
-        kubectl apply -f eks/issuer.yaml
-        kubectl apply -f eks/ingress-ssl.yaml
-
-
-

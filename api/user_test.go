@@ -382,6 +382,9 @@ func TestLoginUser(t *testing.T) {
 					GetUser(gomock.Any(), gomock.Eq(user.Username)). // gomock.Eq(arg)
 					Times(1).
 					Return(user, nil)
+				store.EXPECT().
+					CreateSession(gomock.Any(), gomock.Any()).
+					Times(1)
 			},
 			checkResponse: func(t *testing.T, recorder *httptest.ResponseRecorder) {
 				require.Equal(t, http.StatusOK, recorder.Code)
