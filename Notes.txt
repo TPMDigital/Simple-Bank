@@ -4,7 +4,7 @@ go mod init github.com/tpmdigital/simplebank
 
 2) Example of how to create a new migration
 
-migrate create -ext sql -dir db/migration -seq INSERT_NAME_OF_MIGRATION
+migrate create -ext sql -dir db/migration -seq <INSERT_NAME_OF_MIGRATION>
 
 3) Example docker commands
 
