@@ -2,6 +2,7 @@ package api
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
@@ -68,6 +69,8 @@ func (server *Server) setupRouter() {
 
 // Start runs the HTTP server on a specific address
 func (server *Server) Start(address string) error {
+	log.Printf("starting HTTP server at %s", address)
+
 	return server.router.Run(address)
 }
 
