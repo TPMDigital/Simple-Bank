@@ -15,7 +15,7 @@ import (
 	"google.golang.org/grpc/reflection"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	"github.com/tpmdigital/simplebank/api"
+	// "github.com/tpmdigital/simplebank/api"
 	db "github.com/tpmdigital/simplebank/db/sqlc"
 	"github.com/tpmdigital/simplebank/gapi"
 	"github.com/tpmdigital/simplebank/pb"
@@ -116,6 +116,7 @@ func runGatewayServer(config util.Config, store db.Store) {
 	}
 }
 
+/*
 func runGinServer(config util.Config, store db.Store) {
 
 	// create a new instance of the simplebank (gin) server
@@ -130,3 +131,4 @@ func runGinServer(config util.Config, store db.Store) {
 		log.Fatal("cannot start http server:", err)
 	}
 }
+*/
