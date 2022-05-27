@@ -2,56 +2,31 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target 'all'.  Stop.
 
 # GNU Make 4.3
- 
 # Built for x86_64-pc-linux-gnu
- 
 # Copyright (C) 1988-2020 Free Software Foundation, Inc.
- 
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
- 
 # This is free software: you are free to change and redistribute it.
- 
 # There is NO WARRANTY, to the extent permitted by law.
- 
 
- 
-# Make data base, printed on Sun May 22 18:59:35 2022
- 
+# Make data base, printed on Fri May 27 18:13:27 2022
 
 # Variables
- 
 
- 
 # environment
- 
 GDK_BACKEND = x11
- 
 # environment
- 
 LC_ALL = C
- 
 # environment
- 
 GNOME_SHELL_SESSION_MODE = ubuntu
- 
 # environment
- 
 SSH_AGENT_LAUNCHER = gnome-keyring
- 
 # environment
- 
 SNAP_INSTANCE_KEY = 
- 
 # environment
- 
 GJS_DEBUG_OUTPUT = stderr
- 
 # environment
- 
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-f7d60236-8de7-45f2-8d63-55c5dddd9cb5.sock
- 
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-3f9934ca-b52f-460f-a3c3-8557aa9f2382.sock
 # environment
- 
 VSCODE_CWD = /home/tim/dev/simplebank
 # default
 MAKE_COMMAND := make
@@ -88,13 +63,13 @@ VSCODE_CODE_CACHE_PATH = /home/tim/.config/Code/CachedData/c3511e6c69bb39013c4a4
 # environment
 LANG = C
 # environment
-XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.H0PDM1
+XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.QTWVM1
 # default
 .LOADED := 
 # default
 .INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
 # environment
-GNOME_TERMINAL_SERVICE = :1.106
+GNOME_TERMINAL_SERVICE = :1.110
 # makefile
 MAKEFLAGS = pqrR
 # makefile
@@ -130,13 +105,13 @@ SNAP_REEXEC =
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 2866
+VSCODE_PID = 2978
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/tim-VirtualBox:@/tmp/.ICE-unix/1678,unix/tim-VirtualBox:/tmp/.ICE-unix/1678
+SESSION_MANAGER = local/tim-VirtualBox:@/tmp/.ICE-unix/1687,unix/tim-VirtualBox:/tmp/.ICE-unix/1687
 # automatic
 *F = $(notdir $*)
 # environment
@@ -162,7 +137,7 @@ GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 # environment
 SHLVL = 1
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/8f86caee_a37e_4af7_9667_be0b130159e8
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/9eb63d0d_f857_44b1_a721_90d42abec62c
 # environment
 MAKELEVEL := 0
 # default
@@ -216,7 +191,7 @@ SNAP_ARCH = amd64
 # makefile
 .DEFAULT_GOAL := postgres
 # environment
-SYSTEMD_EXEC_PID = 1698
+SYSTEMD_EXEC_PID = 1707
 # environment
 DISPLAY = :0
 # environment
@@ -304,6 +279,7 @@ SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd
 
 # No implicit rules.
 
+ 
 # Files
 
 migratedown:
@@ -329,8 +305,7 @@ proto:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-22 17:57:08.824726711
- 
+#  Last modified 2022-05-22 19:07:43.750606544
 #  File has been updated.
 #  Successfully updated.
 
@@ -483,6 +458,6 @@ createdb:
 # strcache performance: lookups = 85 / hit rate = 43%
 # hash-table stats:
 # Load=48/8192=1%, Rehash=0, Collisions=0/85=0%
-# Finished Make data base on Sun May 22 18:59:35 2022
+# Finished Make data base on Fri May 27 18:13:27 2022
 
  
