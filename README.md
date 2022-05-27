@@ -1,17 +1,17 @@
 # Simple-Bank
-Following @TECHSCHOOL Back End Master Class (YouTube and Udemy)
+Following @TECH SCHOOL Backend Masterclass (YouTube and Udemy)
 
 [ https://www.youtube.com/playlist?list=PLy_6D98if3ULEtXtNSY_2qN21VCKgoQAE ]
 
 [ https://www.udemy.com/course/backend-master-class-golang-postgresql-kubernetes/ ]
 
-Instructional Video series over 36 different lectures.
+Instructional Video series over 40+ different lectures.
 
 I will expand on the scope of the original project at the end by working to include:
 
 Backend:
 
-1) Refresh Tokens (api)
+1) Refresh Tokens (api) - done
 2) Stronger validation rules (api)
 3) Swagger documentation (docs)
 4) Graceful shutdown (api)
